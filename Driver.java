@@ -35,6 +35,7 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 	int pX = screen_width/2 - w/2;
 	int pY = screen_height/2 - w/2;
 
+
 	//cells - enemies
 	int numEnemies = 100;
 	//left-side is called a reference to an array
@@ -47,8 +48,6 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 	//need a set of arrays to track enemy velocities in x and y direction
 	int[] enemyeVx = new int[numEnemies];
 	int[] enemyeVy = new int[numEnemies];
-	
-	
 	
 	
 	// reading a val from a 1d array
@@ -86,6 +85,31 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 			enemyXs[i] += enemyeVx[i]; //x position changes with x velocity
 			enemyYs[i] += enemyeVy[i]; //y position changes with y velocity
 		}
+		
+		
+		/*Collision Setup:
+		 *  int centerpX = pX + w/2; //for player
+		 *  int centerpY = pY + w/2; //for player
+		 *
+		 *	int centerenemyXs = enemyXs[i] + enemyWs[i]/2; //for enemy --> edit so that you can actually compare centers and radiiof enemies and player
+		 *	int centerenemyYs = enemyYs[i] + enemyWs[i]/2; //for enemy
+		 *
+		 * instead of variables for the radiuses, just use w/2
+		 *
+		 * set distance (d) = distance between two centers - use distance formula
+		 * if distance <= r1 + r2 (radius of each circle) then collision is happening
+		 * if collision is happening, increase width of player linearly
+		 *
+		 *
+		 */
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		
 	}//end of update method - put code above for any updates on variable
@@ -145,8 +169,6 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 					eVy = (int) (Math.random() * (6) + 1);
 				}
 			}
-			
-			//collision check
 			
 			
 			
