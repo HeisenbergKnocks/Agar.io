@@ -49,6 +49,9 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 	int[] enemyeVx = new int[numEnemies];
 	int[] enemyeVy = new int[numEnemies];
 	
+	int centerpX = pX + w/2; //for player
+	int centerpY = pY + w/2; //for player
+	
 	
 	// reading a val from a 1d array
 	// System.out.print( x[0]); //reading value
@@ -73,7 +76,6 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 	
 	
 	
-	
 	//write code here if you're updating variables
 	
 	public void update() {
@@ -85,6 +87,24 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 			enemyXs[i] += enemyeVx[i]; //x position changes with x velocity
 			enemyYs[i] += enemyeVy[i]; //y position changes with y velocity
 		}
+		
+		
+		for(int i = 0; i < enemyXs.length; i++){
+			int centereXs = enemyXs[i] + enemyWs[i]/2;
+			int centereYs = enemyYs[i] + enemyWs[i]/2;
+			int radiusp = w/2;
+			int radiuse = enemyWs[i]/2;
+			double d = Math.sqrt(Math.pow(centerpY - centereYs, 2) + Math.pow(centerpX - centereXs, 2));
+			
+			if(d < radiusp + radiuse){
+				w++;
+				//make it so that the enemy position moves off, similar in part to the velocity randomness
+				
+			}
+			
+		}
+			
+		
 		
 		
 		/*Collision Setup:
