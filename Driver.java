@@ -98,7 +98,8 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 			
 			if(d < radiusp + radiuse){
 				w++;
-				//make it so that the enemy position moves off, similar in part to the velocity randomness
+				//make it so that the enemies move off the screen when eaten; code is similar in part to the velocity randomness
+				
 				
 			}
 			
@@ -108,18 +109,15 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 		
 		
 		/*Collision Setup:
-		 *  int centerpX = pX + w/2; //for player
-		 *  int centerpY = pY + w/2; //for player
-		 *
-		 *	int centerenemyXs = enemyXs[i] + enemyWs[i]/2; //for enemy --> edit so that you can actually compare centers and radiiof enemies and player
-		 *	int centerenemyYs = enemyYs[i] + enemyWs[i]/2; //for enemy
-		 *
-		 * instead of variables for the radiuses, just use w/2
+		 *int centerpX = pX + w/2; //for player
+		 *int centerpY = pY + w/2; //for player
+		 *make a for loop to go through all the enemy centers 
 		 *
 		 * set distance (d) = distance between two centers - use distance formula
 		 * if distance <= r1 + r2 (radius of each circle) then collision is happening
 		 * if collision is happening, increase width of player linearly
-		 *
+		 * 
+		 * 
 		 *
 		 */
 		
