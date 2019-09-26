@@ -34,7 +34,7 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 	int w = 20; //initial size of our player (main cell)
 	int pX = screen_width/2 - w/2;
 	int pY = screen_height/2 - w/2;
-
+	int max_speed = 8;
 
 	//cells - enemies
 	int numEnemies = 100;
@@ -79,8 +79,11 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 	//write code here if you're updating variables
 	
 	public void update() {
-		pX = pX += pVx; //velocity components change the position of the player
-		pY = pY += pVy;
+		pX += pVx; //velocity components change the position of the player
+		pY += pVy;
+		
+		centerpX += pVx;
+		centerpY += pVy;
 		
 		//update all x values based on their respective velocities
 		for(int i = 0; i < enemyXs.length; i++){
@@ -90,18 +93,27 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 		
 		
 		for(int i = 0; i < enemyXs.length; i++){
-			int centereXs = enemyXs[i] + enemyWs[i]/2;
-			int centereYs = enemyYs[i] + enemyWs[i]/2;
+			int centereXs = enemyXs[i] + (enemyWs[i]/2);
+			int centereYs = enemyYs[i] + (enemyWs[i]/2);
 			int radiusp = w/2;
 			int radiuse = enemyWs[i]/2;
 			double d = Math.sqrt(Math.pow(centerpY - centereYs, 2) + Math.pow(centerpX - centereXs, 2));
 			
 			if(d < radiusp + radiuse){
-				w++;
+				w += 2;
+				max_speed -= 1;
 				//make it so that the enemies move off the screen when eaten; code is similar in part to the velocity randomness
-				
+				enemyXs[i] = 5000;
+				enemyYs[i] = 5000;
 				
 			}
+			
+			/*System.out.println(centereXs);
+			System.out.println(centereYs);
+			System.out.println(radiusp);
+			System.out.println(radiuse);
+			System.out.println(d);
+			*/
 			
 		}
 			
@@ -187,7 +199,6 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 					eVy = (int) (Math.random() * (6) + 1);
 				}
 			}
-			
 			
 			
 			//writing to an array location
@@ -298,7 +309,7 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 		double slope = rise / run;
 		double z = Math.sqrt((run * run) + (rise * rise));
 		
-		if(z > 8){
+		if(z > max_speed){
 			double scale = z / 8;
 			run /= scale;
 			rise /= scale;
