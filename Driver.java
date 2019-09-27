@@ -49,8 +49,9 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 	int[] enemyeVx = new int[numEnemies];
 	int[] enemyeVy = new int[numEnemies];
 	
-	int centerpX = pX + w/2; //for player
-	int centerpY = pY + w/2; //for player
+	int[] foodX = new int[100];
+	int[] foodY = new int[100];
+	int[] foodW = new int[100];
 	
 	
 	// reading a val from a 1d array
@@ -69,7 +70,7 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 			
 		}
 		
-		
+		g.setColor(Color.GREEN);
 	}//end of paint method - put code above for anything dealing with drawing -
 	
 	Font font = new Font ("Courier New", 1, 50);
@@ -79,16 +80,25 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 	//write code here if you're updating variables
 	
 	public void update() {
-		pX += pVx; //velocity components change the position of the player
-		pY += pVy;
+		for(int i = 0; i < numEnemies; i++){
+			enemyXs[i] -= pVx;
+			enemyYs[i] -= pVy;
+		}
+		
+		//pX += pVx; //velocity components change the position of the player
+		//pY += pVy;
+		
+		int centerpX = pX + w/2; //for player
+		int centerpY = pY + w/2; //for player
 		
 		centerpX += pVx;
 		centerpY += pVy;
 		
+		
 		//update all x values based on their respective velocities
 		for(int i = 0; i < enemyXs.length; i++){
-			enemyXs[i] += enemyeVx[i]; //x position changes with x velocity
-			enemyYs[i] += enemyeVy[i]; //y position changes with y velocity
+			//enemyXs[i] += enemyeVx[i]; //x position changes with x velocity
+			//enemyYs[i] += enemyeVy[i]; //y position changes with y velocity
 		}
 		
 		
@@ -101,7 +111,6 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 			
 			if(d < radiusp + radiuse){
 				w += 2; //player width increases
-
 				//make it so that the enemies move off the screen when eaten; code is similar in part to the velocity randomness
 				enemyXs[i] = 5000;
 				enemyYs[i] = 5000;
@@ -135,7 +144,7 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 		 *
 		 */
 		
-		
+		for(int i = 0; i )
 		
 		
 		
@@ -308,8 +317,8 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 	@Override
 	public void mouseDragged(MouseEvent arg0) {
 		
-		//System.out.println(arg0.getX()+" : "+arg0.getY());
-		//System.out.println(pX+" : "+pY);
+		System.out.println(arg0.getX()+" : "+arg0.getY());
+		System.out.println(pX+" : "+pY);
 		
 		//based on where they're clicking, figure out how to set
 		//the velocity variables so it moves in that direction!!!!!
@@ -339,3 +348,24 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 	}
 	
 }
+
+/*Loops practice"
+ * int counter = 0;
+ * 
+ * while(i < 5){
+ * 		System.out.println(i);
+ * 		i++;
+ * }
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ */
+
+
+
+
