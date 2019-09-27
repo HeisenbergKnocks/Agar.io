@@ -100,19 +100,21 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 			double d = Math.sqrt(Math.pow(centerpY - centereYs, 2) + Math.pow(centerpX - centereXs, 2));
 			
 			if(d < radiusp + radiuse){
-				w += 2;
-				max_speed -= 1;
+				w += 2; //player width increases
+
 				//make it so that the enemies move off the screen when eaten; code is similar in part to the velocity randomness
 				enemyXs[i] = 5000;
 				enemyYs[i] = 5000;
 				
 			}
 			
+	
 			/*System.out.println(centereXs);
 			System.out.println(centereYs);
 			System.out.println(radiusp);
 			System.out.println(radiuse);
 			System.out.println(d);
+			System.out.println(w);
 			*/
 			
 		}
@@ -240,6 +242,15 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 	@Override
 	public void keyPressed(KeyEvent e) {
 		
+		//pressed
+		if(e.getKeyCode()==32) { //if spacebar is pressed, then check if width of player ball is > 15; if so, then the ball's size can be reduced
+			if(w > 15) {
+				w--;
+			}
+				
+		}
+
+		
 	}
 
 	@Override
@@ -293,11 +304,12 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 	//velocity variables
 	int pVx = 0;
 	int pVy = 0; 
+	
 	@Override
 	public void mouseDragged(MouseEvent arg0) {
 		
-		System.out.println(arg0.getX()+" : "+arg0.getY());
-		System.out.println(pX+" : "+pY);
+		//System.out.println(arg0.getX()+" : "+arg0.getY());
+		//System.out.println(pX+" : "+pY);
 		
 		//based on where they're clicking, figure out how to set
 		//the velocity variables so it moves in that direction!!!!!
