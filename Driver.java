@@ -43,15 +43,18 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 	int[] enemyXs = new int[numEnemies]; //all initialized to 0
 	int[] enemyYs = new int[numEnemies]; //all initialized to 0
 	int[] enemyWs = new int[numEnemies]; //size of enemies
-	Color [] enemyCs = new Color [numEnemies]; //colors of enemies
+	Color[] enemyCs = new Color[numEnemies]; //colors of enemies
 	
 	//need a set of arrays to track enemy velocities in x and y direction
 	int[] enemyeVx = new int[numEnemies];
 	int[] enemyeVy = new int[numEnemies];
 	
-	int[] foodX = new int[100];
-	int[] foodY = new int[100];
-	int[] foodW = new int[100];
+	//cells - food
+	int numFoods = 1700;
+	
+	int[] foodX = new int[numFoods];
+	int[] foodY = new int[numFoods];
+	int[] foodW = new int[numFoods];
 	
 	
 	// reading a val from a 1d array
@@ -70,7 +73,12 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 			
 		}
 		
-		g.setColor(Color.GREEN);
+		for(int i  = 0; i < numFoods; i++) {
+			g.setColor(Color.GREEN);
+			g.fillOval(foodX[i], foodY[i], foodW[i], foodW[i]);
+		}
+		
+		
 	}//end of paint method - put code above for anything dealing with drawing -
 	
 	Font font = new Font ("Courier New", 1, 50);
@@ -85,6 +93,11 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 			enemyYs[i] -= pVy;
 		}
 		
+		for(int i = 0; i < numFoods; i++) {
+			foodX[i] -= pVx;
+			foodY[i] -= pVy;
+		}
+		
 		//pX += pVx; //velocity components change the position of the player
 		//pY += pVy;
 		
@@ -97,8 +110,8 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 		
 		//update all x values based on their respective velocities
 		for(int i = 0; i < enemyXs.length; i++){
-			//enemyXs[i] += enemyeVx[i]; //x position changes with x velocity
-			//enemyYs[i] += enemyeVy[i]; //y position changes with y velocity
+			enemyXs[i] += enemyeVx[i]; //x position changes with x velocity
+			enemyYs[i] += enemyeVy[i]; //y position changes with y velocity
 		}
 		
 		
@@ -111,7 +124,7 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 			
 			if(d < radiusp + radiuse){
 				w += 2; //player width increases
-				//make it so that the enemies move off the screen when eaten; code is similar in part to the velocity randomness
+				//make it so that the enemies move off the screen when eaten
 				enemyXs[i] = 5000;
 				enemyYs[i] = 5000;
 				
@@ -126,27 +139,37 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 			System.out.println(w);
 			*/
 			
-		}
 			
+			/*Collision Setup:
+			 *int centerpX = pX + w/2; //for player
+			 *int centerpY = pY + w/2; //for player
+			 *make a for loop to go through all the enemy centers 
+			 *
+			 * set distance (d) = distance between two centers - use distance formula
+			 * if distance <= r1 + r2 (radius of each circle) then collision is happening
+			 * if collision is happening, increase width of player linearly
+			 * 
+			 * 
+			 *
+			 */
+				
+		}
 		
-		
-		
-		/*Collision Setup:
-		 *int centerpX = pX + w/2; //for player
-		 *int centerpY = pY + w/2; //for player
-		 *make a for loop to go through all the enemy centers 
-		 *
-		 * set distance (d) = distance between two centers - use distance formula
-		 * if distance <= r1 + r2 (radius of each circle) then collision is happening
-		 * if collision is happening, increase width of player linearly
-		 * 
-		 * 
-		 *
-		 */
-		
-		for(int i = 0; i )
-		
-		
+		for(int i = 0; i < foodX.length; i++) {
+			int centerfX = foodX[i] + (foodW[i]/2);
+			int centerfY = foodY[i] + (foodW[i]/2);
+			int radiusp = w/2;
+			int radiusf = foodW[i]/2;
+			double d = Math.sqrt(Math.pow(centerpY - centerfY, 2) + Math.pow(centerpX - centerfX, 2));
+			
+			if(d < radiusp + radiusf){
+				w++;
+				
+				foodX[i] = 6000;
+				foodY[i] = 6000;
+			}
+			
+		}
 		
 		
 		
@@ -235,6 +258,25 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 			counter++;
 			
 		}
+			
+			int adder = 0;
+			while(adder < foodX.length) {
+				
+				
+				int randomX = (int) (Math.random() * (11001) - 5000);
+				int randomY = (int) (Math.random() * (11001) - 5000);
+				
+				
+				foodX[adder] = randomX;
+				foodY[adder] = randomY;
+				
+				foodW[adder] = 10;
+				
+				adder++;
+		}
+			
+			
+		
 		
 		
 		
@@ -252,8 +294,8 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 	public void keyPressed(KeyEvent e) {
 		
 		//pressed
-		if(e.getKeyCode()==32) { //if spacebar is pressed, then check if width of player ball is > 15; if so, then the ball's size can be reduced
-			if(w > 15) {
+		if(e.getKeyCode()==32) { //if spacebar is pressed, then check if width of player ball is > 21; if so, then the ball's size can be reduced
+			if(w > 20) {
 				w--;
 			}
 				
